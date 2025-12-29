@@ -8,19 +8,9 @@ Terraform builds a small AWS stack (VPC, public subnet, security group, EC2 inst
 - GitHub Actions runner with access to those credentials.
 
 ## Required environment variables (GitHub Actions)
-Add these in Repository Settings → Secrets and variables → Actions. Use Secrets for sensitive values and Variables for non-sensitive defaults.
-- `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` (Secrets): AWS credentials used by Terraform.
-- `AWS_REGION` (Secret): Region for AWS calls.
-- `TF_STATE_BUCKET` (Secret): S3 bucket name for the backend.
-- `TF_STATE_KEY` (Secret): Path within the bucket for the state file (for example `spacelift/ec2/terraform.tfstate`).
-- `TF_STATE_REGION` (Secret): Region where the S3 bucket lives.
-- `TF_STATE_DYNAMODB_TABLE` (Secret, optional): DynamoDB table name for state locking.
-- `TF_VAR_instance_name` (Variable, optional): Tag base for created resources (default `spacelift-ec2`).
-- `TF_VAR_instance_type` (Variable, optional): EC2 instance type (default `t3.micro`).
-- `TF_VAR_key_name` (Variable, optional): Existing EC2 key pair name if SSH access is required.
-- `TF_VAR_ssh_ingress_cidr` (Variable, optional): CIDR allowed to SSH into the instance (default `0.0.0.0/0`).
-- `TF_VAR_availability_zone` (Variable, optional): Availability zone override.
-- `TF_VAR_aws_region` (Variable, optional): Region override for the Terraform provider if different from `AWS_REGION`.
+Add these in Repository Settings → Secrets and variables → Actions.
+- Secrets: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` (use Secrets for any sensitive values; `AWS_REGION` can be a Secret if you prefer)
+- Variables: `AWS_REGION`, `TF_STATE_BUCKET`, `TF_STATE_KEY`, `TF_STATE_REGION`, `TF_STATE_DYNAMODB_TABLE` (optional), `TF_VAR_instance_name`, `TF_VAR_instance_type`, `TF_VAR_key_name` (optional), `TF_VAR_ssh_ingress_cidr`, `TF_VAR_availability_zone`, `TF_VAR_aws_region`.
 
 ## Pipeline behavior
 - Pull requests to `main`: fmt, validate, and plan run; plan output is posted as a PR comment.
